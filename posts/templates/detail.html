@@ -1,0 +1,31 @@
+
+{%extends "base.html"%}
+{% block head_title%}{{instance.title}}|Try Django{% endblock head_title %}
+
+<style>
+    {% block style%}
+    h1 {
+    color: #777777;
+    }
+
+    {%endblock style%}
+</style>
+{%block content%}
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages%}
+    <li {%if message.tags%} class="{{message.tags}}" {% endif %}>{{message}}</li>
+    {%endfor%}
+</ul>
+{% endif %}
+<h1> Get your result!</h1>
+<img src="{{instance.image.url}}" class="img-responsive"/><br/>
+<form method="POST",action="" enctype="multipart/form-data">{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Generate Result">
+</form>
+    {{instance.timestamp}}<br/>
+    {{instance.id}}<br/>
+{% endblock content%}
